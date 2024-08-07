@@ -1,0 +1,101 @@
+// index.js
+
+// Import the crypto module
+const crypto = require('crypto');
+
+// Get the commands using process.argv
+const [,, operation, ...args] = process.argv;
+
+// Function to parse numbers from arguments
+const parseNumbers = (args) => args.map(Number);
+
+// Perform the operation based on the command
+switch (operation) {
+  case 'add':
+    if (args.length < 2) {
+      console.log("Please provide at least two numbers for addition.");
+    } else {
+      const numbers = parseNumbers(args);
+      const sum = numbers.reduce((acc, num) => acc + num, 0);
+      console.log(`Result: ${sum}`);
+    }
+    break;
+
+  case 'sub':
+    if (args.length < 2) {
+      console.log("Please provide at least two numbers for subtraction.");
+    } else {
+      const numbers = parseNumbers(args);
+      const result = numbers.reduce((acc, num) => acc - num);
+      console.log(`Result: ${result}`);
+    }
+    break;
+
+  case 'mult':
+    if (args.length < 2) {
+      console.log("Please provide at least two numbers for multiplication.");
+    } else {
+      const numbers = parseNumbers(args);
+      const result = numbers.reduce((acc, num) => acc * num, 1);
+      console.log(`Result: ${result}`);
+    }
+    break;
+
+  case 'divide':
+    if (args.length < 2) {
+      console.log("Please provide at least two numbers for division.");
+    } else {
+      const numbers = parseNumbers(args);
+      const result = numbers.reduce((acc, num) => acc / num);
+      console.log(`Result: ${result}`);
+    }
+    break;
+
+  case 'sin':
+    if (args.length !== 1) {
+      console.log("Please provide one number for sine calculation.");
+    } else {
+      const number = parseFloat(args[0]);
+      console.log(`Result: ${Math.sin(number)}`);
+    }
+    break;
+
+  case 'cos':
+    if (args.length !== 1) {
+      console.log("Please provide one number for cosine calculation.");
+    } else {
+      const number = parseFloat(args[0]);
+      console.log(`Result: ${Math.cos(number)}`);
+    }
+    break;
+
+  case 'tan':
+    if (args.length !== 1) {
+      console.log("Please provide one number for tangent calculation.");
+    } else {
+      const number = parseFloat(args[0]);
+      console.log(`Result: ${Math.tan(number)}`);
+    }
+    break;
+
+  case 'random':
+    if (args.length !== 1) {
+      console.log("Provide length for random number generation.");
+    } else {
+      const length = parseInt(args[0], 10);
+      if (isNaN(length) || length <= 0) {
+        console.log("Please provide a valid positive number for the length.");
+      } else {
+        const randomNumber = crypto.randomBytes(length).toString('binary');
+        console.log(`Random Number: ${randomNumber}`);
+      }
+    }
+    break;
+
+  default:
+    console.log("Invalid operation");
+}
+
+// Notes:
+// - `parseNumbers`: Converts the arguments to numbers for mathematical operations.
+// - `crypto.randomBytes(length).toString('binary')`: Generates a random number of the given length in binary format.
